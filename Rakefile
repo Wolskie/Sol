@@ -3,12 +3,13 @@ require 'ostruct'
 def flags(args)
 	args.join(' ')
 end
+
 def cflags(args)
 	args.map { |a| "--Xcc=\"" + a + "\"" }.join(" ")
 end
 
 desc "Build Sol project by running all tasks."
-task :build => ["setup", "sol_core", "sol_modules"] do
+task :build => ["setup", "sol_core", "sol_modules", "sol_ping"] do
 	puts "Building Sol project."
 end
 
@@ -31,4 +32,4 @@ end
 
 
 import "src/sol-core/build_task.rake"
-#import "src/sol-modules/build_task.rake"
+import "src/sol-modules/build_task.rake"

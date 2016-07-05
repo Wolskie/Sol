@@ -41,7 +41,7 @@ SOL_CORE = OpenStruct.new({
 
 desc "Build Sol module loader"
 task :sol_modules do
-	sh "#{SOL_MODULE.compiler       } " +
+	sh  "#{SOL_MODULE.compiler      } " +
 		"#{SOL_MODULE.output        } " +
 		"#{flags(SOL_MODULE.deps)   } " +
  		"#{flags(SOL_MODULE.vflags) } " +
@@ -51,7 +51,7 @@ task :sol_modules do
 end
 
 task :sol_core => ["sol_modules"] do
-	sh "#{SOL_CORE.compiler       } " +
+	sh  "#{SOL_CORE.compiler      } " +
 		"#{SOL_CORE.output        } " +
 		"#{flags(SOL_CORE.deps)   } " +
 		"#{flags(SOL_CORE.vflags) } " +
