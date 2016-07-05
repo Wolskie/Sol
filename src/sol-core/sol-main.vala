@@ -6,10 +6,10 @@ public static int main (string[] args) {
 	}
 
 	try {
-		PluginLoader loader = new PluginLoader ();
-		PluginIface plugin = loader.load (args[1]);
+		ModuleLoader loader = new ModuleLoader ();
+		IModuleInterface plugin = loader.load (args[1]);
 		plugin.activated ();
-	} catch (PluginError e) {
+	} catch (ModuleError e) {
 		stdout.printf ("Error: %s\n", e.message);
 	}
 	return 0;

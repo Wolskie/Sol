@@ -1,6 +1,6 @@
 // The plugin:
-private class MyPlugin : Object, PluginIface {
-	public void registered (PluginLoader loader) {
+private class MyPlugin : Object, IModuleInterface {
+	public void registered (ModuleLoader loader) {
     	stdout.puts ("loaded\n");
 	}
 
@@ -9,7 +9,7 @@ private class MyPlugin : Object, PluginIface {
     }
 
     public void deactivated () {
-    	stdout.puts ("deactivatev");
+    	stdout.puts ("deactivated\n");
     }
 }
 
