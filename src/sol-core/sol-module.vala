@@ -1,7 +1,7 @@
 public interface IModuleInterface : Object {
-	public abstract void registered (ModuleLoader loader);
+
+    /* Abstract methods all plugins must impliment */
+    public abstract void registered (ModuleLoader loader, Dispatcher dispatcher);
     public abstract void activated ();
     public abstract void deactivated ();
-
-	// get_desctiption (), get_name (), ...
 }

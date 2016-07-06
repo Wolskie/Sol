@@ -9,7 +9,8 @@ SOL_PING = OpenStruct.new({
 		"--shared",
 		"-I./dist/include",
 		"-L./dist/lib",
-		"-llibmodule"
+		"-llibmodule",
+		"-llibdispatch"
 	],
 	vflags:   [
 		"-H dist/include/libping.h",
@@ -19,6 +20,7 @@ SOL_PING = OpenStruct.new({
 	],
 	sources: [
 		"dist/vapi/libmodule.vapi",
+		"dist/vapi/libdispatch.vapi",
 		"src/sol-modules/sol-ping.vala"
 	]
 })

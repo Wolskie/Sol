@@ -6,9 +6,11 @@ public static int main (string[] args) {
 	}
 
 	try {
-		ModuleLoader loader = new ModuleLoader ();
+		Dispatcher d = new Dispatcher();
+		ModuleLoader loader = new ModuleLoader (d);
 		IModuleInterface plugin = loader.load (args[1]);
 		plugin.activated ();
+		d.start();
 	} catch (ModuleError e) {
 		stdout.printf ("Error: %s\n", e.message);
 	}

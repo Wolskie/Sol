@@ -5,6 +5,9 @@ SOL_MODULE = OpenStruct.new({
 		"--pkg=gmodule-2.0"
 	],
 	cflags: [
+		"-I./dist/include",
+		"-L./dist/lib",
+		"-llibdispatch",
 		"--shared",
 		"-fPIC"
 	],
@@ -13,10 +16,30 @@ SOL_MODULE = OpenStruct.new({
 		"--library=dist/vapi/libmodule"
 	],
 	sources: [
+		"dist/vapi/libdispatch.vapi",
 		"src/sol-core/sol-module.vala",
 		"src/sol-core/sol-moduleinfo.vala",
 		"src/sol-core/sol-moduleloader.vala",
 		"src/sol-core/sol-moduleerror.vala"
+	]
+})
+
+SOL_DISPATCHER = OpenStruct.new({
+	compiler: "valac",
+	output: "-o dist/lib/libdispatch.dll",
+	deps: [
+		"--pkg=gmodule-2.0"
+	],
+	cflags: [
+		"--shared",
+		"-fPIC"
+	],
+	vflags: [
+		"-H dist/include/libdispatch.h",
+		"--library=dist/vapi/libdispatch"
+	],
+	sources: [
+		"src/sol-core/sol-dispatcher.vala",
 	]
 })
 
@@ -27,13 +50,15 @@ SOL_CORE = OpenStruct.new({
 	cflags:  [ 
 		"-I./dist/include",
 		"-L./dist/lib",
-		"-llibmodule"
+		"-llibmodule",
+		"-llibdispatch"
 	],
 	vflags:   [
 		"--vapidir=dist/vapi/",
 		"--includedir=dist/include"
 	],
 	sources: [
+		"dist/vapi/libdispatch.vapi",
 		"dist/vapi/libmodule.vapi",
 		"src/sol-core/sol-main.vala"
 	]
@@ -50,7 +75,19 @@ task :sol_modules do
 		
 end
 
-task :sol_core => ["sol_modules"] do
+desc "Build Sol dispatcher"
+task :sol_dispatcher do
+	sh  "#{SOL_DISPATCHER.compiler      } " +
+		"#{SOL_DISPATCHER.output        } " +
+		"#{flags(SOL_DISPATCHER.deps)   } " +
+ 		"#{flags(SOL_DISPATCHER.vflags) } " +
+		"#{flags(SOL_DISPATCHER.sources)} " + 
+		"#{cflags(SOL_DISPATCHER.cflags)} "
+		
+end
+
+desc "build Sol core application"
+task :sol_core => ["sol_dispatcher", "sol_modules"] do
 	sh  "#{SOL_CORE.compiler      } " +
 		"#{SOL_CORE.output        } " +
 		"#{flags(SOL_CORE.deps)   } " +
