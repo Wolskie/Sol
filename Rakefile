@@ -1,5 +1,8 @@
 require 'ostruct'
 
+LIB_EXT=((/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) ? ".dll" : ".so")
+BIN_EXT=((/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) ? ".exe" : "")
+
 def flags(args)
 	args.join(' ')
 end

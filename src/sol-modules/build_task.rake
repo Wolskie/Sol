@@ -1,6 +1,6 @@
 SOL_PING = OpenStruct.new({
 	compiler: "valac",
-	output: "-o dist/lib/libping.dll",
+	output: "-o dist/lib/libping" + LIB_EXT,
 	deps: [
 		"--pkg=gmodule-2.0"
 	],
@@ -9,8 +9,8 @@ SOL_PING = OpenStruct.new({
 		"--shared",
 		"-I./dist/include",
 		"-L./dist/lib",
-		"-llibmodule",
-		"-llibdispatch"
+		"-lmodule",
+		"-ldispatch"
 	],
 	vflags:   [
 		"-H dist/include/libping.h",
